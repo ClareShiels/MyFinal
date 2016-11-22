@@ -1,0 +1,85 @@
+﻿@model IEnumerable<MyHappyDays.Models.Child>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find By Last Name: @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Child's Last Name", "Index", new { sortOrder = ViewBag.NameSort })
+        </th>
+        <th>
+            First Name
+        </th>
+        <th>
+            @Html.ActionLink("Child's DateOfBirth", "Index", new { sortOrder = ViewBag.DOBSort })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(modelItem => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => model.GuardianPhNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => model.GuardianEmail)
+            </th>*@
+        <th>
+
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChildLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChildFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuardianPhNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuardianEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecialNeeds)
+                </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
