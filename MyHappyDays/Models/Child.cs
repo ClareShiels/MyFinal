@@ -25,12 +25,12 @@ namespace MyHappyDays.Models
         [Display(Name = "Guardian's Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "Guardian's Full Name")]
-        public string FullName
+        [Display(Name = "Child's Full Name")]
+        public string ChildFullName
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return ChildFirstName + ", " + ChildLastName;
             }
         }
         [Required(ErrorMessage = "Enter Guardian's Contact Number")]

@@ -41,6 +41,14 @@ namespace MyHappyDays.DAL
                     FirstName = "Siobhan", LastName = "Bucknell", GuardianPhNo = "0871231231",
                     DOB = DateTime.Parse("18-01-2013"), SpecialNeeds = false ,
                     AddressLine1 = "21 Marlfield Terrace", AddressLine2 = "Kiltipper", County = "Dublin 24", PermissionToLeave = false},
+                new Child { ChildFirstName = "Sam", ChildLastName = "Chandler", GuardianEmail = "chris@gmail.com",
+                    FirstName = "Chris", LastName = "Chandler", GuardianPhNo = "0871231232",
+                    DOB = DateTime.Parse("18-06-2013"), SpecialNeeds = false ,
+                    AddressLine1 = "349 Ryevale Lawns", AddressLine2 = "Leixlip", County = "Kildare", PermissionToLeave = false},
+                new Child { ChildFirstName = "Liam", ChildLastName = "Bucknell", GuardianEmail = "dale@gmail.com",
+                    FirstName = "Dale", LastName = "Bucknell", GuardianPhNo = "0871231233",
+                    DOB = DateTime.Parse("17-04-2015"), SpecialNeeds = false ,
+                    AddressLine1 = "21 Marlfield Terrace", AddressLine2 = "Kiltipper", County = "Dublin 24", PermissionToLeave = false},
 
             };
 
@@ -55,10 +63,10 @@ namespace MyHappyDays.DAL
                     LastName = "Byrne", ContactPhNo = "0871231234", AddressLine1 = "14 Grange Rd", AddressLine2 = "Rathfarnham", County = "Dublin 14", EirCode = "D14HR7"  },
                 new Club { ClubName = "Loreto Primary School", ClubEmail = "activities@Loreto.com",  FirstName = "Jennifer",
                     LastName = "Dean", ContactPhNo = "0861231231", AddressLine1 = "Grange Rd", AddressLine2 = "Rathfarnham", County = "Dublin 14", EirCode = "D14HR8" },
-                new Club { ClubName = "Loreto Primary School", ClubEmail = "activities@Loreto.com",  FirstName = "Jennifer",
-                    LastName = "Dean", ContactPhNo = "0861231231", AddressLine1 = "Grange Rd", AddressLine2 = "Rathfarnham", County = "Dublin 14", EirCode = "D14HR8" },
-                new Club { ClubName = "Loreto Primary School", ClubEmail = "activities@Loreto.com",  FirstName = "Jennifer",
-                    LastName = "Dean", ContactPhNo = "0861231231", AddressLine1 = "Grange Rd", AddressLine2 = "Rathfarnham", County = "Dublin 14", EirCode = "D14HR8" }
+                new Club { ClubName = "Templeogue Tennis Club", ClubEmail = "tennis@templeogueclub.com",  FirstName = "Jemma",
+                    LastName = "Butler", ContactPhNo = "0861561231", AddressLine1 = "Templeogue Village", AddressLine2 = "Templeogue", County = "Dublin 6", EirCode = "D6HR8" },
+                new Club { ClubName = "St Endas GAA", ClubEmail = "endasgaa@bllyboden.com",  FirstName = "Patrick",
+                    LastName = "Sears", ContactPhNo = "0867891231", AddressLine1 = "Firhouse Rd", AddressLine2 = "Firhouse", County = "Dublin 24", EirCode = "D24HR8" }
             };
 
             //seeding the Clubs DBSet
@@ -66,25 +74,38 @@ namespace MyHappyDays.DAL
             clubs.ForEach(a => context.Clubs.Add(a));
             context.SaveChanges();
 
+            var instructors = new List<Instructor>
+            {
+                new Instructor { InstructorEmail = "coco@hotmail.com", InstructorFirstName = "Coco", InstructorLastName = "Belle", InstructorPhNo = "0872342343", },
+                new Instructor { InstructorEmail = "dave@yahoo.com", InstructorFirstName = "David", InstructorLastName = "Gray", InstructorPhNo = "0866231231" },
+                new Instructor { InstructorEmail = "john@gmail.com", InstructorFirstName = "John", InstructorLastName = "O'Shea", InstructorPhNo = "0871434241" },
+                new Instructor { InstructorEmail = "daniel@hotmail.com", InstructorFirstName = "Daniel", InstructorLastName = "Bracken", InstructorPhNo = "0875871231" },
+                new Instructor { InstructorEmail = "sandra@yahoo.com", InstructorFirstName = "Sandra", InstructorLastName = "Adamson", InstructorPhNo = "0871451287" },
+            };
+
+            instructors.ForEach(i => context.Instructors.Add(i));
+            context.SaveChanges();
 
 
             var activities = new List<Activity>
             {
                 new Activity { ActivityCourseStartDate = DateTime.Parse("12-06-2016"), ActivityCourseEndDate = DateTime.Parse("11-01-2017"),
                     ActivityType = ActivityType.Course, AgeGroup = AgeGroup.UnderSix, Day = DayOfWeek.Monday, NameOfActivity = "Basketball",
-                    ClassTime = DateTime.Parse("14:30"), ClubID = 1, PriceOfActivity = 80, MaxCapacity = 25,
+                    ClassTime = DateTime.Parse("14:30"), ClubID = 1, InstructorID = 1, PriceOfActivity = 80, MaxCapacity = 25,
                 },
                 new Activity { ActivityCourseStartDate = DateTime.Parse("01-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
                     ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Football",
-                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, PriceOfActivity = 55, MaxCapacity = 30
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 2, PriceOfActivity = 55, MaxCapacity = 30
                 },
                 new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
                     ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
-                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, PriceOfActivity = 55, MaxCapacity = 29 }
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29 }
             };
 
             activities.ForEach(a => context.Activities.Add(a));
             context.SaveChanges();
+
+           
 
             var enrolments = new List<Enrolment>
             {
@@ -96,14 +117,7 @@ namespace MyHappyDays.DAL
             enrolments.ForEach(e => context.Enrolments.Add(e));
             context.SaveChanges();
 
-            var instructors = new List<Instructor>
-            {
-                new Instructor { InstructorEmail = "coco@hotmail.com", InstructorFirstName = "Coco", InstructorLastName = "Belle", InstructorPhNo = "0872342343" },
-                new Instructor { InstructorEmail = "dave@yahoo.com", InstructorFirstName = "David", InstructorLastName = "Gray", InstructorPhNo = "0871231231" }
-            };
-
-            instructors.ForEach(i => context.Instructors.Add(i));
-            context.SaveChanges();
+            
 
             var payments = new List<Payment>
             {

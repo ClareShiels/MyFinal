@@ -1,0 +1,149 @@
+﻿@model MyHappyDays.Models.Child
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Child</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardianPhNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GuardianPhNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GuardianEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GuardianEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLine1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressLine1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLine2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressLine2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.County)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EirCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EirCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PermissionToLeave)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PermissionToLeave)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DOB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DOB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialNeeds)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecialNeeds)
+        </dd>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>
+                        Activity Name
+                    </th>
+                </tr>
+                @foreach (var item in Model.Enrolments)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activity.NameOfActivity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activity.Day)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Activity.ClassTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentDue)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
