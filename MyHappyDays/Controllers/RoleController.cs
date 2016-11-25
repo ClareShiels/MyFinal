@@ -70,8 +70,6 @@ namespace MyHappyDays.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
-
                 if (!isAdminUser())
                 {
                     return RedirectToAction("Index", "Home");

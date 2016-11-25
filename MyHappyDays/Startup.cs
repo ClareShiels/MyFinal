@@ -27,12 +27,13 @@ namespace MyHappyDays
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+           
 
             // creating 1st admin role and default admin user
             if (!roleManager.RoleExists("Admin"))
             {
                 // creating an Admin ROLE
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Admin";
                 roleManager.Create(role);
 
@@ -57,7 +58,7 @@ namespace MyHappyDays
             // creating a clubManager role to be enabled to perform CRUD on activities and lecturers and R on children
             if (!roleManager.RoleExists("Club Manager"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Club Manager";
                 roleManager.Create(role);
 
@@ -66,11 +67,12 @@ namespace MyHappyDays
             // creating a Child's Guardian role to be enabled to perform CRUD on child and    
             if (!roleManager.RoleExists("Child's Guardian"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                var role = new IdentityRole();
                 role.Name = "Child's Guardian";
                 roleManager.Create(role);
 
             }
+            //will create instructor role once I know everything else is ok 24/11/16
         }
     }
 }

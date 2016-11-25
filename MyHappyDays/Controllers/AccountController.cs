@@ -17,9 +17,12 @@ namespace MyHappyDays.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        //creating an ApplicationDbContext object - this class is used for all identity functions, eg. role and user creation
+        ApplicationDbContext context;
 
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -134,11 +137,14 @@ namespace MyHappyDays.Controllers
             }
         }
 
-        //
+        //getting all the roles from the db using the ApplcationDbContext
+        //for user registration the admin roles won't be displayed
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+                                           .ToList(), "Name", "Name");
             return View();
         }
 
@@ -151,11 +157,19 @@ namespace MyHappyDays.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    if (model.UserRoles.Contains("Club Manager"))
+                    {
+                        return RedirectToAction("Index", "Children");
+                    }
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

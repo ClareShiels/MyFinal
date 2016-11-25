@@ -74,6 +74,8 @@ namespace MyHappyDays.Models
         [Display(Name = "Child's Date Of Birth")]
         public DateTime DOB { get; set; }
 
+        //1:1 relationship between club and user
+        public string UserID { get; set; }
 
         [Display(Name = "Does your Child have any Special Needs")]
         public Boolean SpecialNeeds { get; set; }
@@ -91,8 +93,8 @@ namespace MyHappyDays.Models
         public virtual ICollection<Enrolment> Enrolments { get; set; }
 
         //navigation property implementing a 1:1 relationship between Club Manager and Application User
-        //[ForeignKey("UserID")]
-        //public virtual ApplicationUser User { get; set; }
+        [ForeignKey("UserID")]
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

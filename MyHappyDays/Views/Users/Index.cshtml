@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <h1>
+        Welcome Admin. You are authorised to access all areas.
+    </h1>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
+            <li>@Html.ActionLink("Children", "Index", "Children", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Clubs", "Index", "Clubs", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Enrolments", "Index", "Enrolments", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Activities", "Index", "Activities", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Instructors", "Index", "Instructors", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Payments", "Index", "Payments", new { area = "" }, null)</li>
+        </ul>
+        <ul class="nav nav-bar navbar-right">
+            <li>@Html.ActionLink("Activate", "Activate", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        </ul>
+
+    </div>
+}
+
+else if (ViewBag.displayMenu == "Club Manager")
+{
+    <h1>
+        Welcome <strong>@ViewBag.Name</strong>.  You can access and edit your Clubs data
+    </h1>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Club", "Index", "Club", new { UserID = ViewBag.UserID, ClubID = ViewBag.ClubID }, null )</li>
+            
+        </ul>
+    </div>
+}
+
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+}  
+

@@ -18,7 +18,7 @@ namespace MyHappyDays.Controllers
         // GET: All Children
         // GET: Children sorted either by lastname or DOB
         //trying to remove async to get sorting working 17/10
-        //[Authorize(Roles = "Club Manager, Admin")]
+        [Authorize(Roles = "Club Manager, Admin")]
         public ActionResult Index(string sortOrder, string searchString)
         {
             //viewbag variables used to allow the view to configure the column heading hyperlinks with appropriate query string values
