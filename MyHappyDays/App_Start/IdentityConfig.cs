@@ -137,7 +137,7 @@ namespace MyHappyDays
             // Call update once when all roles are removed
             return await UpdateAsync(user).ConfigureAwait(false);
         }
-        //end of 25/11 added code for assigning roles to users
+        ////end of 25/11 added code for assigning roles to users
     }
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>

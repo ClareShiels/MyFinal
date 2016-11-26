@@ -26,5 +26,11 @@ namespace MyHappyDays.Controllers
 
             return View();
         }
+
+        public ActionResult SearchAllActivities()
+        {
+            ViewBag.Message = "Search All Available Activities";
+            return View();
+        }
     }
 }

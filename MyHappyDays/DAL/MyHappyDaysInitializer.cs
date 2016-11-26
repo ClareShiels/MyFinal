@@ -9,7 +9,7 @@ using MyHappyDays.Models;
 
 namespace MyHappyDays.DAL
 {
-    public class MyHappyDaysInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class MyHappyDaysInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

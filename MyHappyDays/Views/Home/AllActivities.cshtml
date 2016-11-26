@@ -1,29 +1,43 @@
 ﻿@model MyHappyDays.Models.Activity
+
 @{
-    ViewBag.Title = "Activities";
+    ViewBag.Title = "All Available Activities";
 }
 
-<h2>Activities</h2>
+<h2>AllActivities</h2>
 
 <div>
     <h4>Activity</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Club.FirstName)
+            @Html.DisplayNameFor(model => model.Club.ClubName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Club.FirstName)
+            @Html.DisplayFor(model => model.Club.ClubName)
         </dd>
-
         <dt>
+            @Html.DisplayNameFor(model => model.Club.AddressLine1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.AddressLine1)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Club.AddressLine2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Club.AddressLine2)
+        </dd>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Instructor.InstructorFirstName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Instructor.InstructorFirstName)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.NameOfActivity)

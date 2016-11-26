@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyHappyDays.Models;
+using MyHappyDays.DAL;
+using MyHappyDays.ViewModels;
 
 namespace MyHappyDays.Controllers
 {
@@ -15,12 +18,53 @@ namespace MyHappyDays.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Activities
-        public async Task<ActionResult> Index()
+        //GET: Activities
+        //public async Task<ActionResult> Index()
+        //{
+        //    var activities = db.Activities.Include(a => a.Club).Include(a => a.Instructor);
+        //    return View(await activities.ToListAsync());
+        //}
+
+        //trying Sat 26/11/16 display activities and their club
+        public ActionResult Index(int? SelectedClub)
         {
-            var activities = db.Activities.Include(a => a.Club).Include(a => a.Instructor);
-            return View(await activities.ToListAsync());
+            var clubs = db.Clubs.OrderBy(c => c.ClubName).ToList();
+            ViewBag.SelectedClub = new SelectList(clubs, "ID", "ClubName", SelectedClub);
+            int cluID = SelectedClub.GetValueOrDefault();
+
+            IQueryable<Activity> activities = db.Activities.
+                Where(a => !SelectedClub.HasValue || a.ClubID == cluID).
+                OrderBy(c => c.ID).
+                Include(c => c.Club);
+            var sql = activities.ToString();
+            return View(activities.ToList());
+
         }
+
+
+        //allow all visitors search activities
+        //public ActionResult SearchAllActivities(int? id)
+        //{
+        //    var viewModel = new ActivitiesData();
+
+        //    viewModel.Activities = db.Activities.
+        //        Include(a => a.Club).
+        //        Include(a => a.Enrolments.Select(c => c.Child)).
+        //        OrderBy(c => c.NameOfActivity);
+
+
+        //    //if (id != null)
+        //    //{
+        //    //    ViewBag.ActivityID = id.Value;
+        //    //    viewModel.Clubs = viewModel.Activities.
+        //    //        Where(a => a.ID == id.Value).cl;
+                   
+        //    //}
+
+
+
+        //    return View(viewModel);
+        //}
 
         // GET: Activities/Details/5
         public async Task<ActionResult> Details(int? id)

@@ -40,6 +40,7 @@ namespace MyHappyDays.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+
                 var Currentuser = User.Identity;
             
                 ViewBag.Name = Currentuser.Name;
@@ -57,6 +58,7 @@ namespace MyHappyDays.Controllers
                     var userId = User.Identity.GetUserId();
                     ViewBag.UserID = userId;
                     ViewBag.ClubID = db.Clubs.Where(c => c.UserID == userId);
+
                 }
 
                 else if (User.IsInRole("Child's Guardian"))

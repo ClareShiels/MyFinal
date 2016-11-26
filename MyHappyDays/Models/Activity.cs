@@ -38,6 +38,7 @@ namespace MyHappyDays.Models
         public ActivityType ActivityType { get; set; }
 
         [Required(ErrorMessage = "Price is required")]
+        [Column(TypeName = "money")]
         public decimal PriceOfActivity { get; set; }
 
         [DataType(DataType.Date)]

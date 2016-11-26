@@ -1,23 +1,25 @@
 ﻿@model IEnumerable<MyHappyDays.Models.Activity>
-
 @{
     ViewBag.Title = "Activities";
 }
 
 <h2>Activities</h2>
 
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Select Club: @Html.DropDownList("SelectedClub", "All")
+        <input type="submit" value="Filter" />
+    </p>
+}
+
 <table class="table">
     <tr>
-        <th>
-            Club
-        </th>
-        <th>
-           Club Address
-        </th>
-        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.ID)
         </th>
@@ -25,82 +27,36 @@
             @Html.DisplayNameFor(model => model.NameOfActivity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaxCapacity)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.AgeGroup)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ActivityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PriceOfActivity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityCourseStartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActivityCourseEndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Day)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClassTime)
+            Club
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Club.ClubName)
-        </td>
-        <td>
-           @Html.DisplayFor(modelItem => item.Club.AddressLine1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Club.AddressLine2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Instructor.InstructorFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NameOfActivity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxCapacity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AgeGroup)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActivityType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PriceOfActivity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActivityCourseStartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActivityCourseEndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Day)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfActivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgeGroup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Club.ClubName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+
