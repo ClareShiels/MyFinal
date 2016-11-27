@@ -166,9 +166,17 @@ namespace MyHappyDays.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     if (model.UserRoles.Contains("Club Manager"))
                     {
                         return RedirectToAction("Index", "Children");
+                    }
+
+                    else if (model.UserRoles.Contains("Child's Guardian"))
+                    {
+                        //ViewBag.id = model.
+
+                        return RedirectToAction("Index", "Activities");
                     }
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
