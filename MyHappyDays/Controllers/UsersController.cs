@@ -41,9 +41,11 @@ namespace MyHappyDays.Controllers
             if (User.Identity.IsAuthenticated)
             {
 
-                var Currentuser = User.Identity;
+                var currentUser = User.Identity;
             
-                ViewBag.Name = Currentuser.Name;
+                ViewBag.Name = currentUser.Name;
+                ViewBag.id = currentUser.GetUserId();
+                var currentUserID = currentUser.GetUserId();
                 ViewBag.displayMenu = "No";
 
                 if (isAdminUser())
@@ -55,9 +57,7 @@ namespace MyHappyDays.Controllers
                 {
                   
                     ViewBag.displayMenu = "Club Manager";
-                    var userId = User.Identity.GetUserId();
-                    ViewBag.UserID = userId;
-                    ViewBag.ClubID = db.Clubs.Where(c => c.UserID == userId);
+                    ViewBag.ClubID = db.Clubs.Where(c => c.UserID == currentUserID);
 
                 }
 

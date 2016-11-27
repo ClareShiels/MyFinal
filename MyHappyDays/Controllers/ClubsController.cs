@@ -37,6 +37,8 @@ namespace MyHappyDays.Controllers
             return View(club);
         }
 
+        //
+
         // GET: Clubs/Create
         //public ActionResult Create()
         //{

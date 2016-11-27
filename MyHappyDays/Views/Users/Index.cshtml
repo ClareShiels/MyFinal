@@ -28,11 +28,11 @@
 else if (ViewBag.displayMenu == "Club Manager")
 {
     <h1>
-        Welcome <strong>@ViewBag.Name</strong>.  You can access and edit your Clubs data
+        Welcome <strong>@ViewBag.Name</strong>.  You can now register your Club
     </h1>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Club", "Index", "Club", new { UserID = ViewBag.UserID, ClubID = ViewBag.ClubID }, null )</li>
+            <li>@Html.ActionLink("Club", "Index", "Clubs", new { UserID = ViewBag.UserID, ClubID = ViewBag.ClubID }, null )</li>
             
         </ul>
     </div>
@@ -40,6 +40,12 @@ else if (ViewBag.displayMenu == "Club Manager")
 
 else
 {
-    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+    <h2>  Welcome <strong>@ViewBag.Name</strong> You can now create your Child's profile</h2>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Register My Child", "Create", "Children", new { UserID = ViewBag.UserID, ChildID = ViewBag.ChildID }, null)</li>
+
+        </ul>
+    </div>
 }  
 

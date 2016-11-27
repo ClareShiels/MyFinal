@@ -49,6 +49,7 @@ namespace MyHappyDays.Controllers
             return View(children.ToList());
         }
 
+        
         // GET: Children/Details/5
         public ActionResult  Details(int? id)
         {

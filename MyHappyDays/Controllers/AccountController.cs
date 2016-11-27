@@ -62,6 +62,7 @@ namespace MyHappyDays.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+            
         }
 
         //
@@ -82,7 +83,8 @@ namespace MyHappyDays.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Users");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -167,16 +169,17 @@ namespace MyHappyDays.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    var LogInID = user.Id;
                     if (model.UserRoles.Contains("Club Manager"))
                     {
-                        return RedirectToAction("Index", "Children");
+                        return RedirectToAction("Index", "Users");
                     }
 
                     else if (model.UserRoles.Contains("Child's Guardian"))
                     {
                         //ViewBag.id = model.
-
-                        return RedirectToAction("Index", "Activities");
+                        return RedirectToAction("Index", "Users");
+                        //return RedirectToAction("Details", "Children", "kidID");
                     }
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
