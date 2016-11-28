@@ -15,9 +15,8 @@ namespace MyHappyDays.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: All Children
+        // GET: All Children in the db
         // GET: Children sorted either by lastname or DOB
-        //trying to remove async to get sorting working 17/10
         [Authorize(Roles = "Club Manager, Admin")]
         public ActionResult Index(string sortOrder, string searchString)
         {
@@ -49,6 +48,10 @@ namespace MyHappyDays.Controllers
             return View(children.ToList());
         }
 
+
+        
+
+
         
         // GET: Children/Details/5
         public ActionResult  Details(int? id)
@@ -77,12 +80,14 @@ namespace MyHappyDays.Controllers
         [ValidateAntiForgeryToken]      
         public async Task<ActionResult> Create([Bind(Include = "FirstName,LastName,GuardianPhNo,GuardianEmail,ChildLastName,ChildFirstName,AddressLine1,AddressLine2,County,EirCode,PermissionToLeave,DOB,SpecialNeeds")] Child child)
         {
+            
             try
             {
                 if (ModelState.IsValid)
                 {
                     db.Children.Add(child);
                     await db.SaveChangesAsync();
+                    
                     return RedirectToAction("Index");
                 }
             }

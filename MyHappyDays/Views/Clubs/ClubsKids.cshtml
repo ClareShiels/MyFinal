@@ -1,0 +1,140 @@
+﻿@model IEnumerable<MyHappyDays.Models.Club>
+
+@{
+    ViewBag.Title = "ClubsKids";
+}
+
+<h2>ClubsKids</h2>
+
+<div>
+    <h4>All kids Registered in Our Club</h4>
+    <hr />
+    
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.ActionLink("Child's Last Name", "Index", new { sortOrder = ViewBag.NameSort })
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    @Html.ActionLink("Child's DateOfBirth", "Index", new { sortOrder = ViewBag.DOBSort })
+                </th>
+                @*<dt>
+                        @Html.DisplayNameFor(model => model.User.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.User.Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ContactPhNo)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ContactPhNo)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ClubEmail)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ClubEmail)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ClubName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ClubName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AddressLine1)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AddressLine1)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AddressLine2)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AddressLine2)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.County)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.County)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EirCode)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EirCode)
+                    </dd>*@
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressLine1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddressLine2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.County)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactPhNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+                }
+
+            </table>
+        
+</div>
+}

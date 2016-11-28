@@ -28,14 +28,20 @@
 else if (ViewBag.displayMenu == "Club Manager")
 {
     <h1>
-        Welcome <strong>@ViewBag.Name</strong>.  You can now register your Club
+        Welcome <strong>@ViewBag.Name</strong>.  You can now register your Club's details
     </h1>
     <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Kids Registered in Our Club", "ClubsKids", "Clubs", new { UserID = ViewBag.UserID, ClubID = ViewBag.ClubID }, null)</li>
+
+        </ul>
+    </div>
+    @*<div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li>@Html.ActionLink("Club", "Index", "Clubs", new { UserID = ViewBag.UserID, ClubID = ViewBag.ClubID }, null )</li>
             
         </ul>
-    </div>
+    </div>*@
 }
 
 else

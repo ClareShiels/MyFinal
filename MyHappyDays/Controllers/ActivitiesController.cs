@@ -53,13 +53,13 @@ namespace MyHappyDays.Controllers
         //        OrderBy(c => c.NameOfActivity);
 
 
-        //    //if (id != null)
-        //    //{
-        //    //    ViewBag.ActivityID = id.Value;
-        //    //    viewModel.Clubs = viewModel.Activities.
-        //    //        Where(a => a.ID == id.Value).cl;
-                   
-        //    //}
+        //    if (id != null)
+        //    {
+        //        ViewBag.ActivityID = id.Value;
+        //        viewModel.Clubs = viewModel.Activities.
+        //            Where(a => a.ID == id.Value).cl;
+
+        //    }
 
 
 
