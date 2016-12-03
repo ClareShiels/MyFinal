@@ -44,6 +44,7 @@ namespace MyHappyDays.Controllers
             {
 
                 var currentUser = User.Identity;
+                var CurrentUserId = currentUser.GetUserId();
             
                 ViewBag.Name = currentUser.Name;
                 //ViewBag.id = currentUser.GetUserId();

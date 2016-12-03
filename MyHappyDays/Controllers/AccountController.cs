@@ -77,14 +77,23 @@ namespace MyHappyDays.Controllers
                 return View(model);
             }
 
+            //for redirecting
+
+            var user = context.Users.ToList().Find(u => u.UserName == model.UserName);
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Users");
-                    //return RedirectToLocal(returnUrl);
+                    if(UserManager.IsInRole(user.Id, "Child's Guardian"))
+                        return RedirectToAction("myDashboard", "Children");
+                    if (UserManager.IsInRole(user.Id, "Club Manager"))
+                        return RedirectToAction("ClubsKids", "Clubs");
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                        return RedirectToAction("Index", "Users");
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

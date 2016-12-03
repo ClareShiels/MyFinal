@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using MyHappyDays.Models;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MyHappyDays.ViewModels;
 
 namespace MyHappyDays.Controllers
@@ -55,13 +56,13 @@ namespace MyHappyDays.Controllers
 
         //trying to get viewmodel to load data per user thurs night 1stdec 3:00am new low:( 
         [HttpGet]
-        public ActionResult MyDashboard(string currentUserId)//, int? childID)
+        public ActionResult MyDashboard()//ApplicationUser user//)//, int? childID)
         {
             var myProfile = new ChildProfile();
             myProfile.Children = db.Children.
-                Include(c => c.Enrolments).
-                Include(c => c.User);
-            var currentID = currentUserId;
+                Include(c => c.Enrolments);
+                //Include(c => c.User);
+            var currentID = User.Identity.GetUserId();
             //var childId = childID;
             myProfile.Children = db.Children.Where(c => c.UserID == currentID);
             //myProfile.Activities = myProfile.Enrolments
@@ -100,28 +101,12 @@ namespace MyHappyDays.Controllers
         public async Task<ActionResult> Create([Bind(Include = "FirstName,LastName,GuardianPhNo,GuardianEmail,ChildLastName,ChildFirstName,AddressLine1,AddressLine2,County,EirCode,PermissionToLeave,DOB,SpecialNeeds")] Child child)
         {
 
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            if (claimsIdentity != null)
-            {
-                // the principal identity is a claims identity.
-                // now we need to find the NameIdentifier claim
-                var userIdClaim = claimsIdentity.Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-                if (userIdClaim != null)
-                {
-                    var userIdValue = userIdClaim.Value;
-                }
-             
-
-            }
-
-            //var viewmodel = new 
-
             try
             {
                 if (ModelState.IsValid)
                 {
+                    var userId = User.Identity.GetUserId();
+                    child.UserID = userId;
                     db.Children.Add(child);
                     await db.SaveChangesAsync();
                     
