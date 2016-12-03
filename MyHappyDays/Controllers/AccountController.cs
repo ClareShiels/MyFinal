@@ -172,11 +172,13 @@ namespace MyHappyDays.Controllers
                     var LogInID = user.Id;
                     if (model.UserRoles.Contains("Club Manager"))
                     {
+                        
                         return RedirectToAction("Index", "Users");
                     }
 
                     else if (model.UserRoles.Contains("Child's Guardian"))
                     {
+
                         //ViewBag.id = model.
                         return RedirectToAction("Index", "Users");
                         //return RedirectToAction("Details", "Children", "kidID");

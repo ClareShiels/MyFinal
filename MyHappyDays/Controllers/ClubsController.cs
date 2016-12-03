@@ -73,30 +73,30 @@ namespace MyHappyDays.Controllers
         }
 
 
-        ////GET: Clubs/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.UserID = new //SelectList(db.ApplicationUsers, "Id", "Email");
-        //    return View();
-        //}
+        //GET: Clubs/Create
+        public ActionResult Create()
+        {
+            // ViewBag.UserID =  //SelectList(db.ApplicationUsers, "Id", "Email");
+            return View();
+        }
 
-        //// POST: Clubs/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "ID,FirstName,LastName,ContactPhNo,ClubEmail,ClubName,AddressLine1,AddressLine2,County,EirCode,UserID")] Club club)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Clubs.Add(club);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
+        // POST: Clubs/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind(Include = "ID,FirstName,LastName,ContactPhNo,ClubEmail,ClubName,AddressLine1,AddressLine2,County,EirCode,UserID")] Club club)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Clubs.Add(club);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
 
-        //    ViewBag.UserID = new SelectList(db.ApplicationUsers, "Id", "Email", club.UserID);
-        //    return View(club);
-        //}
+            //ViewBag.UserID = new SelectList(db.ApplicationUsers, "Id", "Email", club.UserID);
+            return View(club);
+        }
 
         // GET: Clubs/Edit/5
         //public async Task<ActionResult> Edit(int? id)

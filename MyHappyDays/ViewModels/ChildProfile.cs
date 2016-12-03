@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHappyDays.Models;
+using System.Data;
+using System.Data.Entity;
+using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Owin;
@@ -13,7 +17,7 @@ using MyHappyDays.DAL;
 
 namespace MyHappyDays.ViewModels
 {
-    class ChildProfile
+    public class ChildProfile
     {
         public IEnumerable<ApplicationIdentity> Users { get; set; }
         public IEnumerable<Child> Children { get; set; }

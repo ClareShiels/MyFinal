@@ -8,6 +8,8 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using MyHappyDays.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MyHappyDays.ViewModels;
+
 
 
 namespace MyHappyDays.Controllers
@@ -44,8 +46,8 @@ namespace MyHappyDays.Controllers
                 var currentUser = User.Identity;
             
                 ViewBag.Name = currentUser.Name;
-                ViewBag.id = currentUser.GetUserId();
-                var currentUserID = currentUser.GetUserId();
+                //ViewBag.id = currentUser.GetUserId();
+                //var currentUserID = currentUser.GetUserId();
                 ViewBag.displayMenu = "No";
 
                 if (isAdminUser())
@@ -53,22 +55,28 @@ namespace MyHappyDays.Controllers
                     ViewBag.displayMenu = "Yes";
                 }
 
+                else if (User.IsInRole("Child's Guardian"))
+                {
+                    ViewBag.displayMenu = "Child's Guardian";
+                    ViewBag.UserID = User.Identity.GetUserId();
+                    var userId = User.Identity.GetUserId();
+                    ViewBag.ChildID = db.Children.Where(k => k.UserID == userId);
+                    //var ourProfile = new ChildProfile();
+                    //ourProfile.Users = db.
+                }
+
+
                 else if (User.IsInRole("Club Manager"))
                 {
                   
                     ViewBag.displayMenu = "Club Manager";
+                    ViewBag.UserID = User.Identity.GetUserId();
+                    var currentUserID = User.Identity.GetUserId();
                     ViewBag.ClubID = db.Clubs.Where(c => c.UserID == currentUserID);
 
                 }
 
-                else if (User.IsInRole("Child's Guardian"))
-                {
-                    ViewBag.displayMenu = "Child's Guardian";
-                    var userId = User.Identity.GetUserId();
-                    ViewBag.UserID = User.Identity.GetUserId();
-                    ViewBag.ChildID = db.Children.Where(k => k.UserID == userId);
-                }
-
+                
 
                 return View();
             }

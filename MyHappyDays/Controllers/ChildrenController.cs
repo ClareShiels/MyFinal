@@ -8,6 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyHappyDays.Models;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using MyHappyDays.ViewModels;
 
 namespace MyHappyDays.Controllers
 {
@@ -18,9 +21,11 @@ namespace MyHappyDays.Controllers
         // GET: All Children in the db
         // GET: Children sorted either by lastname or DOB
         [Authorize(Roles = "Club Manager, Admin")]
+        //values for the sortOrder and searchString are passed into the Index action method from the query string in the URL
         public ActionResult Index(string sortOrder, string searchString)
         {
             //viewbag variables used to allow the view to configure the column heading hyperlinks with appropriate query string values
+            //the query willbe either Name or DOB
             ViewBag.NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DOBSort = sortOrder == "DOB" ? "date_desc" : "DOB";
             var children = from c in db.Children
@@ -48,7 +53,20 @@ namespace MyHappyDays.Controllers
             return View(children.ToList());
         }
 
-
+        //trying to get viewmodel to load data per user thurs night 1stdec 3:00am new low:( 
+        [HttpGet]
+        public ActionResult MyDashboard(string currentUserId)//, int? childID)
+        {
+            var myProfile = new ChildProfile();
+            myProfile.Children = db.Children.
+                Include(c => c.Enrolments).
+                Include(c => c.User);
+            var currentID = currentUserId;
+            //var childId = childID;
+            myProfile.Children = db.Children.Where(c => c.UserID == currentID);
+            //myProfile.Activities = myProfile.Enrolments
+            return View(myProfile);
+        }
         
 
 
@@ -65,6 +83,7 @@ namespace MyHappyDays.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(child);
         }
 
@@ -80,7 +99,25 @@ namespace MyHappyDays.Controllers
         [ValidateAntiForgeryToken]      
         public async Task<ActionResult> Create([Bind(Include = "FirstName,LastName,GuardianPhNo,GuardianEmail,ChildLastName,ChildFirstName,AddressLine1,AddressLine2,County,EirCode,PermissionToLeave,DOB,SpecialNeeds")] Child child)
         {
-            
+
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            if (claimsIdentity != null)
+            {
+                // the principal identity is a claims identity.
+                // now we need to find the NameIdentifier claim
+                var userIdClaim = claimsIdentity.Claims
+                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+                if (userIdClaim != null)
+                {
+                    var userIdValue = userIdClaim.Value;
+                }
+             
+
+            }
+
+            //var viewmodel = new 
+
             try
             {
                 if (ModelState.IsValid)
