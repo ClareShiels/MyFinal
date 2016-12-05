@@ -8,6 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyHappyDays.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MyHappyDays.ViewModels;
 
 namespace MyHappyDays.Controllers
 {
@@ -72,11 +75,24 @@ namespace MyHappyDays.Controllers
             return View(children.ToList());
         }
 
+        //getting all data for each club for the viewmodel
+        [HttpGet]
+        public ActionResult MyDashboard()
+        {
+            var clubProfile = new ClubData();
+            clubProfile.Clubs = db.Clubs.
+                Include(c => c.Activities).
+                Include(c => c.Instructors);
+            var currentID = User.Identity.GetUserId();
+           clubProfile.Clubs = db.Clubs.Where(c => c.UserID == currentID);
+            
+            return View(clubProfile);
+        }
+
 
         //GET: Clubs/Create
         public ActionResult Create()
         {
-            // ViewBag.UserID =  //SelectList(db.ApplicationUsers, "Id", "Email");
             return View();
         }
 
@@ -85,13 +101,15 @@ namespace MyHappyDays.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,FirstName,LastName,ContactPhNo,ClubEmail,ClubName,AddressLine1,AddressLine2,County,EirCode,UserID")] Club club)
+        public async Task<ActionResult> Create([Bind(Include = "ClubName,AddressLine1,AddressLine2,County,EirCode,ClubEmail,ContactPhNo,FirstName,LastName")] Club club)
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                club.UserID = userId;
                 db.Clubs.Add(club);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyDashboard");
             }
 
             //ViewBag.UserID = new SelectList(db.ApplicationUsers, "Id", "Email", club.UserID);

@@ -56,17 +56,60 @@ namespace MyHappyDays.Controllers
 
         //trying to get viewmodel to load data per user thurs night 1stdec 3:00am new low:( 
         [HttpGet]
-        public ActionResult MyDashboard()//ApplicationUser user//)//, int? childID)
+        public ActionResult MyDashboard(int? id, int? enrolmentID)
         {
-            var myProfile = new ChildProfile();
-            myProfile.Children = db.Children.
-                Include(c => c.Enrolments);
-                //Include(c => c.User);
+            ViewBag.Name = User.Identity.GetUserName();
+            //creating instance of the viewmodel child profile
+            var viewModel = new ChildProfile();
+
+            //getting children for current user
             var currentID = User.Identity.GetUserId();
-            //var childId = childID;
-            myProfile.Children = db.Children.Where(c => c.UserID == currentID);
-            //myProfile.Activities = myProfile.Enrolments
-            return View(myProfile);
+            //viewModel.Children = db.Children.Where(c => c.UserID == currentID);
+
+            //eager loading (to improve performance) children.enrolments navigation property
+            viewModel.Children = db.Children.
+                Include(c => c.Enrolments.Select(a => a.Activity)).
+                Where(c => c.UserID == currentID).
+                OrderBy(c => c.DOB);
+
+            viewModel.Activities = db.Activities.
+                Include(c => c.Enrolments).
+                OrderBy(c => c.NameOfActivity);
+
+
+            if(id !=null)
+            {
+                ViewBag.ChildID = id.Value;
+
+                viewModel.Enrolments = viewModel.Children.
+                    Where( c => c.ID == id.Value).
+                Single().Enrolments;
+            }
+
+
+            //SUN EVE 4/12 RETING TO FILL VIEWMODEL WITH ACTIVITIES PER ENROLMENT
+            //if (enrolmentID != null)
+            //{
+            //    ViewBag.EnrolmentID = enrolmentID.Value;
+
+            //    viewModel.Activities = viewModel.Enrolments.
+            //        Where(c => c.ID == enrolmentID).
+            //        Single().Activity;
+
+
+                //var selectedEnrolment = viewModel.Enrolments.Where(x => x.EnrolmentID == enrolmentID).Single();
+                //db.Entry(selectedEnrolment).Collection(x => x.Activities).Load();
+                //foreach (Activity activity in selectedEnrolment.Activities)
+                //{
+                //    db.Entry(activity).Reference(x => x.).Load();
+                //}
+
+                //viewModel.Activities = selectedEnrolment.Activities;
+
+                //} 
+
+                //myProfile.Activities = myProfile.Enrolments
+                return View(viewModel);
         }
         
 
@@ -110,7 +153,7 @@ namespace MyHappyDays.Controllers
                     db.Children.Add(child);
                     await db.SaveChangesAsync();
                     
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MyDashboard");
                 }
             }
             catch (DataException)

@@ -1,70 +1,93 @@
-﻿@model MyHappyDays.ViewModels.ChildProfile
+﻿@*when creating view for a viewModel you must delete the dbContext class as viewModel does not access db in anyway from the view*@
+@model MyHappyDays.ViewModels.ChildProfile
 
 @{
     ViewBag.Title = "MyDashboard";
 }
 
-<h2>My Dashboard</h2>
+<h4>Welcome + ViewBag.UserName + To Your Dashboard</h4>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-
 <table class="table">
     <tr>
         <th>Child's Name</th>
         <th>Child's Date Of Birth</th>
-        <th>Current Activities</th>
+        <th>Any Registered Activities?</th>
     </tr>
-    @foreach (var item in Model.Children)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor( modelItem => item.ChildFullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayNameFor(modelItem => item.Enrolments)
-            </td>
-            @*just commenting out the below toil i work out how to dispay table within table or whether to use select*@
-                @*<table class="table">
-                    <tr>
-                        <th>Activity Name</th>
-                        <th>Day Of Activity</th>
-                        <th>Time Of Activity</th>
-                        <th>Activity Price</th>
-                        <th>Payment Due Date</th>
-                        </tr>
-                    @foreach (var detail in Model.Enrolments)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => detail.Activity.NameOfActivity)
-                            </td>
-                               <td>
-                                    @Html.DisplayFor(modelItem => detail.Activity.Day)
-                               </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => detail.Activity.ClassTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => detail.Activity.PriceOfActivity)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => detail.PaymentDue)
-                            </td>
-                        </tr>
-                    }
-                </table>*@
-            
-        </tr>
-    
-    
+
+@foreach (var item in Model.Children)
+{
+    string selectedRow = "";
+    if (item.ID == ViewBag.ChildID)
+        {
+        selectedRow = "Success";
     }
+    <tr class = "@selectedRow" valign = "top">
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildFullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+    @*@if (item.Enrolments != null)
+    {
+
+        @Html.DisplayFor(modelItem => "Yes")
+
+    }
+
+    else
+    {
+        @Html.DisplayFor(modelItem => "No")
+    }*@
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "MyDashboard", new { id = item.ID} ) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
 </table>
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+
+@if (Model.Enrolments != null)
+{
+<h3> Currently Registered in the following Activities </h3>
+    <table class= "table">
+    <tr>
+        <th></th>
+        <th>Name Of Activity</th>
+        <th>Day</th>
+        <th>Time</th>
+    </tr>    
+
+        @foreach (var item in Model.Enrolments)
+        {
+            string selectedRow = "success";
+            if (item.ID == ViewBag.enrolmentID)
+            {
+                selectedRow = "success";
+            }
+            <tr class = "@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "MyDashboard", new { id = item.ID}) |
+                </td>
+                <td>
+                    @item.Activity.NameOfActivity
+                </td>
+                <td>
+                    @item.Activity.Day
+                </td>
+                <td>
+                    @item.Activity.ClassTime
+                </td>
+            </tr>
+        }
+    </table>
+}

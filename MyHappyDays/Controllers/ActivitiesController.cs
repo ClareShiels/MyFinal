@@ -43,28 +43,26 @@ namespace MyHappyDays.Controllers
 
 
         //allow all visitors search activities
-        //public ActionResult SearchAllActivities(int? id)
-        //{
-        //    var viewModel = new ActivitiesData();
+        public ActionResult SearchAllActivities()
+        {
+            var viewModel = new ActivitiesData();
 
-        //    viewModel.Activities = db.Activities.
-        //        Include(a => a.Club).
-        //        Include(a => a.Enrolments.Select(c => c.Child)).
-        //        OrderBy(c => c.NameOfActivity);
+            viewModel.Activities = db.Activities.
+                Include(a => a.Club).
+                Include(a => a.Enrolments.Select(c => c.Child)).
+                Include(a => a.Instructor).
+                OrderBy(c => c.NameOfActivity);
 
+            //if (id != null)
+            //{
+            //    ViewBag.ActivityID = id.Value;
+            //    viewModel.Clubs = viewModel.Activities.
+            //        Where(a => a.ID == id.Value).cl;
 
-        //    if (id != null)
-        //    {
-        //        ViewBag.ActivityID = id.Value;
-        //        viewModel.Clubs = viewModel.Activities.
-        //            Where(a => a.ID == id.Value).cl;
+            //}
 
-        //    }
-
-
-
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
 
         // GET: Activities/Details/5
         public async Task<ActionResult> Details(int? id)

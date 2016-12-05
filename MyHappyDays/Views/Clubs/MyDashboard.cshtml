@@ -1,0 +1,38 @@
+﻿@model MyHappyDays.ViewModels.ClubData
+
+@{
+    ViewBag.Title = "MyDashboard";
+}
+
+<h3>Club's Dashboard</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Club Name</th>
+        <th>Club Manager</th>
+        <th>Contact Phone Number</th>
+        <th>Activities</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Clubs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClubName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayNameFor(modelItem => item.ContactPhNo)
+            </td>
+            <td>
+                @Html.
+            </td>
+            </tr>
+    }
+    </table>
