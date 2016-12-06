@@ -6,14 +6,16 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
+@if(User.IsInRole("Club Manager"))
+
+<h3>Welcome to the Club Payments Page, the annual advertising fee is €200</h3>
+<h1>To Complete Registration Please Enter your Payment Details</h1>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Enrolment.ID)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.ID)
         </th>
@@ -34,9 +36,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Enrolment.ID)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.ID)
         </td>
@@ -53,9 +53,9 @@
             @Html.DisplayFor(modelItem => item.PayeeName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EnrolmentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EnrolmentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EnrolmentID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

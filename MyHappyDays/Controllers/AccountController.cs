@@ -90,7 +90,7 @@ namespace MyHappyDays.Controllers
                     if(UserManager.IsInRole(user.Id, "Child's Guardian"))
                         return RedirectToAction("myDashboard", "Children");
                     if (UserManager.IsInRole(user.Id, "Club Manager"))
-                        return RedirectToAction("ClubsKids", "Clubs");
+                        return RedirectToAction("myDashboard", "Clubs");
                     if (UserManager.IsInRole(user.Id, "Admin"))
                         return RedirectToAction("Index", "Users");
                     return RedirectToLocal(returnUrl);
@@ -182,7 +182,7 @@ namespace MyHappyDays.Controllers
                     if (model.UserRoles.Contains("Club Manager"))
                     {
                         
-                        return RedirectToAction("Index", "Users");
+                        return RedirectToAction("Create", "Payments");
                     }
 
                     else if (model.UserRoles.Contains("Child's Guardian"))

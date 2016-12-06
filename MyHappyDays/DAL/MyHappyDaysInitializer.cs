@@ -109,9 +109,9 @@ namespace MyHappyDays.DAL
 
             var enrolments = new List<Enrolment>
             {
-                new Enrolment { ChildID = 1, ActivityID = 1, PaymentDue = true, PaymentReceived = false },
-                new Enrolment { ChildID = 1, ActivityID = 2, PaymentDue = false, PaymentReceived = true, },
-                new Enrolment { ChildID = 2, ActivityID = 1, PaymentDue = true, PaymentReceived = false, }
+                new Enrolment { ChildID = 1, ActivityID = 1, PaymentDue = true, PaymentReceived = false, PaymentID = 1 },
+                new Enrolment { ChildID = 1, ActivityID = 2, PaymentDue = false, PaymentReceived = true, PaymentID = 2 },
+                new Enrolment { ChildID = 2, ActivityID = 1, PaymentDue = true, PaymentReceived = false, PaymentID = 3}
             };
 
             enrolments.ForEach(e => context.Enrolments.Add(e));
@@ -121,9 +121,9 @@ namespace MyHappyDays.DAL
 
             var payments = new List<Payment>
             {
-                new Payment {EnrolmentID = 1, DateReceived = DateTime.Parse("05-03-2016"), AmountDue = 80.00, AmountReceived = 80.00, PayeeName = "Clare Smith" },
-                new Payment {EnrolmentID = 3, DateReceived = DateTime.Parse("02-02-2016"), AmountDue = 120.00, AmountReceived = 120.00, PayeeName = "Darren Byrne" },
-                new Payment {EnrolmentID = 2, DateReceived = DateTime.Parse("12-06-2016"), AmountDue = 100.00, AmountReceived = 100.00, PayeeName = "Brenda Given" }
+                new Payment {ID = 1, DateReceived = DateTime.Parse("05-03-2016"), AmountDue = 80.00, AmountReceived = 80.00, PayeeName = "Clare Smith" },
+                new Payment {ID = 3, DateReceived = DateTime.Parse("02-02-2016"), AmountDue = 120.00, AmountReceived = 120.00, PayeeName = "Darren Byrne" },
+                new Payment {ID = 2, DateReceived = DateTime.Parse("12-06-2016"), AmountDue = 100.00, AmountReceived = 100.00, PayeeName = "Brenda Given" }
             };
 
             payments.ForEach(p => context.Payments.Add(p));

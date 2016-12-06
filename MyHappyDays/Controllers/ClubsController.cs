@@ -77,16 +77,28 @@ namespace MyHappyDays.Controllers
 
         //getting all data for each club for the viewmodel
         [HttpGet]
-        public ActionResult MyDashboard()
+        public ActionResult MyDashboard(int? id)
         {
-            var clubProfile = new ClubData();
-            clubProfile.Clubs = db.Clubs.
-                Include(c => c.Activities).
-                Include(c => c.Instructors);
             var currentID = User.Identity.GetUserId();
-           clubProfile.Clubs = db.Clubs.Where(c => c.UserID == currentID);
+            var viewModel = new ClubData();
+            viewModel.Activities = db.Activities.
+                Include(c => c.Club.Instructors).
+                Include(c => c.Enrolments).
+                Where(c => c.ClubID.ToString() == currentID ).
+                OrderBy(c => c.NameOfActivity);
             
-            return View(clubProfile);
+           viewModel.Clubs = db.Clubs.Where(c => c.UserID == currentID);
+
+            if (id != null)
+            {
+                ViewBag.ClubID = id.Value;
+
+                viewModel.Activities = viewModel.Activities.
+                    Where(c => c.ID == id.Value);
+                
+            }
+
+            return View(viewModel);
         }
 
 
@@ -103,17 +115,26 @@ namespace MyHappyDays.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ClubName,AddressLine1,AddressLine2,County,EirCode,ClubEmail,ContactPhNo,FirstName,LastName")] Club club)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = User.Identity.GetUserId();
-                club.UserID = userId;
-                db.Clubs.Add(club);
-                await db.SaveChangesAsync();
-                return RedirectToAction("MyDashboard");
-            }
 
-            //ViewBag.UserID = new SelectList(db.ApplicationUsers, "Id", "Email", club.UserID);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var userId = User.Identity.GetUserId();
+                    club.UserID = userId;
+                    db.Clubs.Add(club);
+                    await db.SaveChangesAsync();
+
+                    return RedirectToAction("MyDashboard");
+                }
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Can't save changes right now.  Try again, if the problem persists, check with your system administrator");
+            }
             return View(club);
+
+            
         }
 
         // GET: Clubs/Edit/5

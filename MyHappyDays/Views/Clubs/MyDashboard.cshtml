@@ -1,38 +1,56 @@
-﻿@model MyHappyDays.ViewModels.ClubData
-
+﻿@*when creating view for a viewModel you must delete the dbContext class as viewModel does not access db in anyway from the view*@
+@model MyHappyDays.ViewModels.ClubData
 @{
     ViewBag.Title = "MyDashboard";
 }
 
-<h3>Club's Dashboard</h3>
+<h4>Welcome + ViewBag.UserName + To Your Club's Dashboard</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Your Club Profile", "Create")
 </p>
-
 <table class="table">
     <tr>
-        <th>Club Name</th>
-        <th>Club Manager</th>
-        <th>Contact Phone Number</th>
-        <th>Activities</th>
-        <th></th>
+        <th>Activity</th>
+        <th>Day of Class</th>
+        <th>Time of Class</th>
+        <th>Price of Class</th>
+        <th>Max Capacity</th>
+        <th>Instructor</th>
     </tr>
-    @foreach (var item in Model.Clubs)
+
+    @foreach (var item in Model.Activities)
     {
-        <tr>
+        string selectedRow = "";
+        if (item.ID == ViewBag.ClubID)
+        {
+            selectedRow = "Success";
+        }
+        <tr class="@selectedRow" valign="top">
             <td>
-                @Html.DisplayFor(modelItem => item.ClubName)
+                @Html.DisplayFor(modelItem => item.NameOfActivity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FullName)
+                @Html.DisplayFor(modelItem => item.Day)
             </td>
             <td>
-                @Html.DisplayNameFor(modelItem => item.ContactPhNo)
+                @Html.DisplayFor(modelItem => item.ClassTime)
             </td>
             <td>
-                @Html.
+                @Html.DisplayFor(modelItem => item.PriceOfActivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxCapacity)
+            </td>
+            <td>
+                </td>
+            <td>
+                @Html.ActionLink("Select", "MyDashboard", new { id = item.ID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
             </tr>
     }
     </table>
+

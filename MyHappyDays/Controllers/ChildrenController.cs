@@ -55,6 +55,7 @@ namespace MyHappyDays.Controllers
         }
 
         //trying to get viewmodel to load data per user thurs night 1stdec 3:00am new low:( 
+        //passing in user id to the childID and  
         [HttpGet]
         public ActionResult MyDashboard(int? id, int? enrolmentID)
         {
@@ -64,8 +65,7 @@ namespace MyHappyDays.Controllers
 
             //getting children for current user
             var currentID = User.Identity.GetUserId();
-            //viewModel.Children = db.Children.Where(c => c.UserID == currentID);
-
+            
             //eager loading (to improve performance) children.enrolments navigation property
             viewModel.Children = db.Children.
                 Include(c => c.Enrolments.Select(a => a.Activity)).

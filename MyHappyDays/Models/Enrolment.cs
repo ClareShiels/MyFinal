@@ -21,6 +21,10 @@ namespace MyHappyDays.Models
         [ForeignKey("Activity")]
         public int ActivityID { get; set; }
 
+        //foreign key from payment entity
+        [ForeignKey("Payment")]
+        public int PaymentID { get; set; }
+
         //Navigation Properties:
         //implementing a m - 1 relationship between enrolment and activity
         public virtual Activity Activity { get; set; }

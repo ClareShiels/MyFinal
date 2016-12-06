@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using MyHappyDays.Models;
 
 namespace MyHappyDays.Controllers
@@ -18,7 +20,7 @@ namespace MyHappyDays.Controllers
         // GET: Payments
         public async Task<ActionResult> Index()
         {
-            var payments = db.Payments.Include(p => p.Enrolment);
+            var payments = db.Payments.Include(p => p.Enrolments);
             return View(await payments.ToListAsync());
         }
 
@@ -40,7 +42,7 @@ namespace MyHappyDays.Controllers
         // GET: Payments/Create
         public ActionResult Create()
         {
-            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID");
+            //ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID");
             return View();
         }
 
@@ -49,17 +51,30 @@ namespace MyHappyDays.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "EnrolmentID,ID,AmountReceived,AmountDue,DateReceived,PayeeName")] Payment payment)
+        public async Task<ActionResult> Create([Bind(Include = "AmountReceived,AmountDue,DateReceived,PayeeName")] Payment payment)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Payments.Add(payment);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    var currentUser = User.Identity;
+                    var currentID = User.Identity.GetUserId();
+                    if (User.IsInRole("Club Manager"))
+                    {
+                        db.Payments.Add(payment);
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                    }
+                }
 
-            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.EnrolmentID);
-            return View(payment);
+                //ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.EnrolmentID);
+                return View(payment);
+            }
+            catch (DataException)
+            {
+                ModelState.AddModelError("", "Can't complete payment right now.  Try again, if the problem persists, check with your system administrator");
+            }
+            return View();
         }
 
         // GET: Payments/Edit/5
@@ -74,7 +89,7 @@ namespace MyHappyDays.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.EnrolmentID);
+            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.ID);
             return View(payment);
         }
 
@@ -91,7 +106,7 @@ namespace MyHappyDays.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.EnrolmentID);
+            ViewBag.EnrolmentID = new SelectList(db.Enrolments, "ID", "ID", payment.ID);
             return View(payment);
         }
 

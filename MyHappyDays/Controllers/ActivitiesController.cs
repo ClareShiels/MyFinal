@@ -82,8 +82,8 @@ namespace MyHappyDays.Controllers
         // GET: Activities/Create
         public ActionResult Create()
         {
-            ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName");
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName");
+            //ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName");
+            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName");
             return View();
         }
 
@@ -92,7 +92,7 @@ namespace MyHappyDays.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,NameOfActivity,MaxCapacity,AgeGroup,ActivityType,PriceOfActivity,ActivityCourseStartDate,ActivityCourseEndDate,Day,ClassTime")] Activity activity)
+        public async Task<ActionResult> Create([Bind(Include = "NameOfActivity,MaxCapacity,AgeGroup,ActivityType,PriceOfActivity,ActivityCourseStartDate,ActivityCourseEndDate,Day,ClassTime")] Activity activity)
         {
             if (ModelState.IsValid)
             {
