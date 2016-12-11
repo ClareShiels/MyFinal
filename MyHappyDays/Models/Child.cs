@@ -6,10 +6,6 @@ using System.Web;
 
 namespace MyHappyDays.Models
 {
-    //public enum SpecialNeeds
-    //{
-    //    yes, no
-    //}
     public class Child
     {
         public int ID { get; set; }
@@ -80,15 +76,6 @@ namespace MyHappyDays.Models
 
         [Display(Name = "Does your Child have any Special Needs")]
         public Boolean SpecialNeeds { get; set; }
-
-        //ChildSingleEntity is used to ensure there isn't a duplicate entry for this child by combining FirstName, LastName, DOB
-        //public string ChildSingleEntity
-        //{
-        //    get
-        //    {
-        //        return string.Format("{0},{1},{2}", ChildFirstName, ChildLastName, DOB.ToString());
-        //    }
-        //}
 
         //navigation properties implementing a 1:m relationship between Child and Enrolments
         public virtual ICollection<Enrolment> Enrolments { get; set; }
