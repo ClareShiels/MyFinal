@@ -440,6 +440,7 @@
     <Content Include="Views\Clubs\ClubsKids.cshtml" />
     <Content Include="Views\Children\MyDashboard.cshtml" />
     <Content Include="Views\Clubs\MyDashboard.cshtml" />
+    <Content Include="Views\Home\HomeSearchAllActivities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

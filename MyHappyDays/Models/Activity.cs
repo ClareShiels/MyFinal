@@ -7,7 +7,12 @@ namespace MyHappyDays.Models
 {
     public enum AgeGroup
     {
-        UnderSix, SixToNine, NineToTwelve
+        [Display(Name = "Under 6")]
+        UnderSix,
+        [Display(Name = "6 - 8" )]
+        SixToNine,
+        [Display(Name = "9 - 12")]
+        NineToTwelve
     }
 
     public enum ActivityType

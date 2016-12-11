@@ -99,8 +99,53 @@ namespace MyHappyDays.DAL
                 },
                 new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
                     ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
-                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29 }
-            };
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                },
+                new Activity { ActivityCourseStartDate = DateTime.Parse("30-02-2017"), ActivityCourseEndDate = DateTime.Parse("10-12-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.SixToNine, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Football",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 2, PriceOfActivity = 55, MaxCapacity = 30
+                },
+
+                  new Activity { ActivityCourseStartDate = DateTime.Parse("30-02-2017"), ActivityCourseEndDate = DateTime.Parse("10-12-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.SixToNine, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 30
+                  },
+
+                   new Activity { ActivityCourseStartDate = DateTime.Parse("30-02-2017"), ActivityCourseEndDate = DateTime.Parse("10-12-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.UnderSix, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Academy",
+                    ClassTime = DateTime.Parse("14:45"), ClubID = 2, InstructorID = 2, PriceOfActivity = 55, MaxCapacity = 20
+                   },
+
+                    new Activity { ActivityCourseStartDate = DateTime.Parse("31-01-2017"), ActivityCourseEndDate = DateTime.Parse("10-12-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.SixToNine, Day = DayOfWeek.Wednesday, NameOfActivity = "ArtsNCrafts",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 1, InstructorID = 3, PriceOfActivity = 55, MaxCapacity = 25
+                    },
+
+                     new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                     },
+
+                      new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                      },
+
+                       new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                       },
+
+                        new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                        },
+
+                         new Activity { ActivityCourseStartDate = DateTime.Parse("30-06-2016"), ActivityCourseEndDate = DateTime.Parse("10-06-2017"),
+                    ActivityType = ActivityType.Course, AgeGroup = AgeGroup.NineToTwelve, Day = DayOfWeek.Tuesday, NameOfActivity = "GAA Hurling",
+                    ClassTime = DateTime.Parse("15:00"), ClubID = 2, InstructorID = 1, PriceOfActivity = 55, MaxCapacity = 29
+                         }
+        };
 
             activities.ForEach(a => context.Activities.Add(a));
             context.SaveChanges();
