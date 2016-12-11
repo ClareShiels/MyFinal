@@ -88,9 +88,9 @@ namespace MyHappyDays.Controllers
             {
                 case SignInStatus.Success:
                     if(UserManager.IsInRole(user.Id, "Child's Guardian"))
-                        return RedirectToAction("myDashboard", "Children");
+                        return RedirectToAction("MyDashboard", "Children");
                     if (UserManager.IsInRole(user.Id, "Club Manager"))
-                        return RedirectToAction("myDashboard", "Clubs");
+                        return RedirectToAction("MyDashboard", "Clubs");
                     if (UserManager.IsInRole(user.Id, "Admin"))
                         return RedirectToAction("Index", "Users");
                     return RedirectToLocal(returnUrl);
@@ -187,10 +187,9 @@ namespace MyHappyDays.Controllers
 
                     else if (model.UserRoles.Contains("Child's Guardian"))
                     {
-
-                        //ViewBag.id = model.
-                        return RedirectToAction("Index", "Users");
-                        //return RedirectToAction("Details", "Children", "kidID");
+                        
+                        return RedirectToAction("MyDashboard", "Children");
+                        
                     }
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

@@ -11,7 +11,7 @@ namespace MyHappyDays.Models
     }
     public class Payment
     {
-        //pk and fk is the enrolment id as payment is dependent on enrolment
+        ////pk and fk is the enrolment id as payment is dependent on enrolment
         //[Key]
         //[ForeignKey("Enrolment")]
 
@@ -27,6 +27,6 @@ namespace MyHappyDays.Models
         public string PayeeName { get; set; }
 
         //navigation property to implement a 1:1 relationship between payment and enrolment
-        public virtual ICollection<Enrolment> Enrolments { get; set; }
+       // public Enrolment Enrolment { get; set; }
     }
 }

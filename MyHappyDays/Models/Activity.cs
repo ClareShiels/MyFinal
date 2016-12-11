@@ -79,5 +79,8 @@ namespace MyHappyDays.Models
         //implementing a m:1 relationship between activities and activity centre
         public virtual Club Club { get; set; }
 
+        //method to update spaces available in class
+
+
     }
 }

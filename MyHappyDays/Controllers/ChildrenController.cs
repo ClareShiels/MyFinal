@@ -55,7 +55,7 @@ namespace MyHappyDays.Controllers
         }
 
         //trying to get viewmodel to load data per user thurs night 1stdec 3:00am new low:( 
-        //passing in user id to the childID and  
+        //passing in user id to the childID and enrolment id
         [HttpGet]
         public ActionResult MyDashboard(int? id, int? enrolmentID)
         {
@@ -110,8 +110,7 @@ namespace MyHappyDays.Controllers
 
                 //myProfile.Activities = myProfile.Enrolments
                 return View(viewModel);
-        }
-        
+        }       
 
 
         

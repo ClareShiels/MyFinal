@@ -154,9 +154,9 @@ namespace MyHappyDays.DAL
 
             var enrolments = new List<Enrolment>
             {
-                new Enrolment { ChildID = 1, ActivityID = 1, PaymentDue = true, PaymentReceived = false, PaymentID = 1 },
-                new Enrolment { ChildID = 1, ActivityID = 2, PaymentDue = false, PaymentReceived = true, PaymentID = 2 },
-                new Enrolment { ChildID = 2, ActivityID = 1, PaymentDue = true, PaymentReceived = false, PaymentID = 3}
+                new Enrolment { ChildID = 1, ActivityID = 1, PaymentDue = true, /*PaymentReceived = false, *//*PaymentID = 1*/ },
+                new Enrolment { ChildID = 1, ActivityID = 2, PaymentDue = false, /*PaymentReceived = true,*/ /*PaymentID = 2*/ },
+                new Enrolment { ChildID = 2, ActivityID = 1, PaymentDue = true, /*PaymentReceived = false,*/ /*PaymentID = 3*/}
             };
 
             enrolments.ForEach(e => context.Enrolments.Add(e));

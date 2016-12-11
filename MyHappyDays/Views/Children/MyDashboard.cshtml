@@ -5,10 +5,10 @@
     ViewBag.Title = "MyDashboard";
 }
 
-<h4>Welcome + ViewBag.UserName + To Your Dashboard</h4>
+<h4>Welcome  To Your Dashboard</h4>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create Profile and Child's Details", "Create")
 </p>
 <table class="table">
     <tr>
@@ -42,14 +42,15 @@
     else
     {
         @Html.DisplayFor(modelItem => "No")
-    }*@
-            @Html.DisplayFor(modelItem => item.DOB)
+    }
+            @Html.DisplayFor(modelItem => item.DOB)*@
         </td>
         <td>
             @Html.ActionLink("Select", "MyDashboard", new { id = item.ID} ) |
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+            @Html.ActionLink("Register An Activity", "Create", "Enrolments", new { id = item.ID})
         </td>
     </tr>
 }

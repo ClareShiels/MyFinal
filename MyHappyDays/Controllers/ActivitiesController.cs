@@ -29,6 +29,20 @@ namespace MyHappyDays.Controllers
 
         }
 
+        private void PopulateInstructorDropDownList(object selectedInstructor = null)
+        {
+
+            var instructorsQuery = from i in db.Instructors //where i.ClubID == clubID
+                                   orderby i.InstructorLastName
+                                   select i;
+            ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "InstructorLastName", selectedInstructor);
+        }
+
+
+        //method to return the spaces available in a class
+
+
+
         //GET: Activities
         //public async Task<ActionResult> Index()
         //{
@@ -89,12 +103,16 @@ namespace MyHappyDays.Controllers
             return View(activity);
         }
 
+
         // GET: Activities/Create
+        //returning a blank create form and calling the populate clubs and instructors method to fill the dropdown menu 
+        [Authorize(Roles = "Club Manager, Admin")]
         public ActionResult Create()
         {
             //ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName");
             //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName");
             PopulateClubDropDownList();
+            PopulateInstructorDropDownList();
 
             return View();
         }
@@ -102,16 +120,17 @@ namespace MyHappyDays.Controllers
         // POST: Activities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Club Manager, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NameOfActivity,MaxCapacity,AgeGroup,ActivityType,PriceOfActivity,ActivityCourseStartDate,ActivityCourseEndDate,Day,ClassTime")] Activity activity)
+        public async Task<ActionResult> Create([Bind(Include = "NameOfActivity,MaxCapacity,AgeGroup,ActivityType,PriceOfActivity,ActivityCourseStartDate,ActivityCourseEndDate,Day,ClassTime, ClubID, InstructorID")] Activity activity)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     db.Activities.Add(activity);
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return RedirectToAction("Index");
                 }
             }
@@ -121,11 +140,13 @@ namespace MyHappyDays.Controllers
             }
 
             PopulateClubDropDownList(activity.ClubID);
+            PopulateInstructorDropDownList(activity.InstructorID);
             
             return View(activity);
         }
 
         // GET: Activities/Edit/5
+        [Authorize(Roles = "Club Manager, Admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -137,8 +158,10 @@ namespace MyHappyDays.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName", activity.ClubID);
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName", activity.InstructorID);
+
+            PopulateClubDropDownList(activity.ClubID);
+            PopulateInstructorDropDownList(activity.InstructorID);
+           
             return View(activity);
         }
 
@@ -149,14 +172,24 @@ namespace MyHappyDays.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NameOfActivity,MaxCapacity,AgeGroup,ActivityType,PriceOfActivity,ActivityCourseStartDate,ActivityCourseEndDate,Day,ClassTime,ClubID,InstructorID")] Activity activity)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(activity).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(activity).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName", activity.ClubID);
-            ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName", activity.InstructorID);
+
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes at the moment.  Try Again, if the problem continues see your administrator");
+            }
+
+            PopulateClubDropDownList(activity.ClubID);
+            PopulateInstructorDropDownList(activity.InstructorID);
+
             return View(activity);
         }
 

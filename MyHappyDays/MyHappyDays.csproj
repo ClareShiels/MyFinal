@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ClubsController.cs" />
+    <Compile Include="Controllers\EnrolmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentsController.cs" />
@@ -441,6 +442,11 @@
     <Content Include="Views\Children\MyDashboard.cshtml" />
     <Content Include="Views\Clubs\MyDashboard.cshtml" />
     <Content Include="Views\Home\HomeSearchAllActivities.cshtml" />
+    <Content Include="Views\Enrolments\Create.cshtml" />
+    <Content Include="Views\Enrolments\Delete.cshtml" />
+    <Content Include="Views\Enrolments\Details.cshtml" />
+    <Content Include="Views\Enrolments\Edit.cshtml" />
+    <Content Include="Views\Enrolments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

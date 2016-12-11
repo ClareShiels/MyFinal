@@ -18,11 +18,11 @@ namespace MyHappyDays.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Payments
-        public async Task<ActionResult> Index()
-        {
-            var payments = db.Payments.Include(p => p.Enrolments);
-            return View(await payments.ToListAsync());
-        }
+        //public async Task<ActionResult> Index()
+        //{
+        //    var payments = db.Payments.Include(p => p.Enrolments);
+        //    return View(await payments.ToListAsync());
+        //}
 
         // GET: Payments/Details/5
         public async Task<ActionResult> Details(int? id)
