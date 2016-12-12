@@ -75,16 +75,21 @@ namespace MyHappyDays.Controllers
             return View(children.ToList());
         }
 
-        //getting all data for each club for the viewmodel
+        //getting all data for each club for the viewmodel passing in the optional clubID value and the optional activityID value
         [HttpGet]
-        public ActionResult MyDashboard(int? id)
+        public ActionResult MyDashboard(int? id, int? activityId)
         {
+            //getting id of user
             var currentID = User.Identity.GetUserId();
+    
+            //creating new viewmodel
             var viewModel = new ClubData();
+
+            //filling viewmodel with it's registered activities
             viewModel.Activities = db.Activities.
                 Include(c => c.Club.Instructors).
                 Include(c => c.Enrolments).
-                Where(c => c.ClubID.ToString() == currentID ).
+                Where(c => c.Club.UserID == currentID ).    
                 OrderBy(c => c.NameOfActivity);
             
            viewModel.Clubs = db.Clubs.Where(c => c.UserID == currentID);
@@ -93,9 +98,17 @@ namespace MyHappyDays.Controllers
             {
                 ViewBag.ClubID = id.Value;
 
-                viewModel.Activities = viewModel.Activities.
-                    Where(c => c.ID == id.Value);
+                viewModel.Activities = viewModel.Clubs.
+                    Where(c => c.ID == id.Value).Single().Activities;
                 
+            }
+
+            if (activityId != null)
+            {
+                ViewBag.ActivityID = activityId.Value;
+
+                viewModel.Enrolments = viewModel.Activities.
+                    Where(a => a.ID == activityId.Value).Single().Enrolments;
             }
 
             return View(viewModel);

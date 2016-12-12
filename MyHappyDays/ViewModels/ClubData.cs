@@ -13,6 +13,7 @@ namespace MyHappyDays.ViewModels
         public IEnumerable<Child> Children { get; set; }
         public IEnumerable<Enrolment> Enrolments { get; set; }
         public IEnumerable<Activity> Activities { get; set; }
+        public Instructor Instructor {get;set;}
        
         public IEnumerable<Instructor> Instructors { get; set; }
         public IEnumerable<ApplicationUser> ApplicationUsers { get; set; }

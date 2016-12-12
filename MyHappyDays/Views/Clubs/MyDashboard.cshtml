@@ -5,9 +5,12 @@
 }
 
 <h4>Welcome + ViewBag.UserName + To Your Club's Dashboard</h4>
-
 <p>
     @Html.ActionLink("Create Your Club Profile", "Create")
+</p>
+
+<p>
+    @Html.ActionLink("Add An Activity", "Create", "Activities")
 </p>
 <table class="table">
     <tr>
@@ -16,7 +19,7 @@
         <th>Time of Class</th>
         <th>Price of Class</th>
         <th>Max Capacity</th>
-        <th>Instructor</th>
+        @*<th>Instructor</th>*@
     </tr>
 
     @foreach (var item in Model.Activities)
@@ -42,8 +45,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MaxCapacity)
             </td>
-            <td>
-                </td>
+            @*<td>
+                @if (item.Instructor != null)
+                {
+                         @item.Instructor.InstructorLastName
+                }
+            </td>*@
             <td>
                 @Html.ActionLink("Select", "MyDashboard", new { id = item.ID }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
@@ -54,3 +61,30 @@
     }
     </table>
 
+@if (Model.Activities != null && Model.Enrolments != null)
+{
+<h3>List of Children Enrolled in the selected Activity:</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                Name
+            </th>
+            <th>
+                DOB
+            </th>
+        </tr>
+
+       @foreach (var item in Model.Enrolments)
+       {
+           <tr>
+               <td>
+                   @item.Child.LastName
+               </td>
+               <td>
+                   @item.Child.DOB
+               </td>
+           </tr>
+       }
+        </table>
+}
