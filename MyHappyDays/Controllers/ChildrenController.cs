@@ -19,6 +19,17 @@ namespace MyHappyDays.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //populate drop down list with activities
+        private void PopulateActivityDropDownList(object selectedActivity = null)
+        {
+            var activityQuery = from a in db.Activities
+                                    orderby a.NameOfActivity
+                                    select a;
+
+            ViewBag.ActivityId = new SelectList(activityQuery, "ID", "NameOfActivity", selectedActivity);
+
+        }
+
         // GET: All Children in the db
         // GET: Children sorted either by lastname or DOB
         [Authorize(Roles = "Club Manager, Admin")]
