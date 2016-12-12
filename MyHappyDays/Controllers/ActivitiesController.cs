@@ -29,20 +29,6 @@ namespace MyHappyDays.Controllers
 
         }
 
-        private void PopulateInstructorDropDownList(object selectedInstructor = null)
-        {
-
-            var instructorsQuery = from i in db.Instructors //where i.ClubID == clubID
-                                   orderby i.InstructorLastName
-                                   select i;
-            ViewBag.InstructorID = new SelectList(instructorsQuery, "ID", "InstructorLastName", selectedInstructor);
-        }
-
-
-        //method to return the spaces available in a class
-
-
-
         //GET: Activities
         //public async Task<ActionResult> Index()
         //{
