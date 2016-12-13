@@ -9,7 +9,7 @@ namespace MyHappyDays.DAL
 
         public MyHappyDaysConfiguration()
         {
-            SetExecutionStrategy("System.Data.SqlClient"), () => new SqlAzureExecutionStrategy());
+            SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
         }
     }
 }

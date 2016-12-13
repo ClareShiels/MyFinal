@@ -6,6 +6,9 @@ using Owin;
 using MyHappyDays.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MyHappyDays.Migrations;
+using MyHappyDays.DAL;
+using System.Data.SqlClient;
 using System.Security.Claims;
 
 

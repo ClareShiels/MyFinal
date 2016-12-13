@@ -446,6 +446,7 @@ namespace MyHappyDays.Controllers
                 {
                     _userManager.Dispose();
                     _userManager = null;
+
                 }
 
                 if (_signInManager != null)
@@ -454,9 +455,11 @@ namespace MyHappyDays.Controllers
                     _signInManager = null;
                 }
             }
-
+          
             base.Dispose(disposing);
         }
+
+
 
         #region Helpers
         // Used for XSRF protection when adding external logins
