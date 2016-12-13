@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MyHappyDays.Models.Activity>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<MyHappyDays.Models.Activity>
 
 @{
     ViewBag.Title = "HomeSearchAllActivities";
@@ -6,13 +7,20 @@
 
 <h2>Search All Activities</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*@*<p>
+    @*hiding from unprivileged users
+    @if (Roles.IsUserInRole("Club Manager", "Admin"))
+    {
+            @Html.ActionLink("Create New", "Create")
+    }
+</p>*@
+         
+
 
 @using (Html.BeginForm())
 {
     <p>
+        
         Select Club: @Html.DropDownList("SelectedClub", "All")
         <input type="submit" , value="filter" />
     </p>
@@ -21,13 +29,13 @@
 <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.NameOfActivity)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AgeGroup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceOfActivity)
             </th>
             <th>
                 Club
@@ -39,21 +47,21 @@
         {
             <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.NameOfActivity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AgeGroup)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Club.ClubName)
             </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
                 </td>
             </tr>
         }

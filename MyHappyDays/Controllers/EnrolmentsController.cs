@@ -31,7 +31,7 @@ namespace MyHappyDays.Controllers
         // GET: Enrolments
         public async Task<ActionResult> Index()
         {
-            var enrolments = db.Enrolments.Include(e => e.Activity).Include(e => e.Child)/*.Include(e => e.Payment)*/;
+            var enrolments = db.Enrolments.Include(e => e.Activity).Include(e => e.Child);
             return View(await enrolments.ToListAsync());
         }
 
@@ -65,7 +65,7 @@ namespace MyHappyDays.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,PaymentReceived,PaymentDue,ChildID,ActivityID")] Enrolment enrolment)
+        public async Task<ActionResult> Create([Bind(Include = "PaymentReceived,PaymentDue,ChildID,ActivityID")] Enrolment enrolment)
         {
             var currentUserId = User.Identity.GetUserId();
             var myChildren = db.Children.
@@ -78,7 +78,7 @@ namespace MyHappyDays.Controllers
                 {
                     db.Enrolments.Add(enrolment);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("MyDashboard", "Children");
                 }
             }
             catch (RetryLimitExceededException)

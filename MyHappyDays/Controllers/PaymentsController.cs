@@ -49,9 +49,11 @@ namespace MyHappyDays.Controllers
         // POST: Payments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //payment setup is outside the scope of this project
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "AmountReceived,AmountDue,DateReceived,PayeeName")] Payment payment)
+        public async Task<ActionResult> Create([Bind(Include = "AmountPaid,AmountDue,DateReceived,PayeeName")] Payment payment)
         {
             try
             {
@@ -63,7 +65,11 @@ namespace MyHappyDays.Controllers
                     {
                         db.Payments.Add(payment);
                         await db.SaveChangesAsync();
-                        return RedirectToAction("Index");
+                        return RedirectToAction("MyDashboard", "Clubs");
+                    }
+                    else
+                    {
+                        return RedirectToAction("MyDashboard", "Children");
                     }
                 }
 

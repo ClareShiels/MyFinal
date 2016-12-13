@@ -17,12 +17,14 @@ namespace MyHappyDays.Models
 
         [Required]
         [StringLength(50, ErrorMessage = "First Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [Column("FirstName")]
         [Display(Name = "Club Administrator's First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Last Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [Display(Name = "Club Administrator's Family Name")]
         public string LastName { get; set; }
 
@@ -31,7 +33,7 @@ namespace MyHappyDays.Models
         {
             get
             {
-                return FirstName + ", " + LastName;
+                return FirstName + " " + LastName;
             }
         }
 
@@ -45,6 +47,7 @@ namespace MyHappyDays.Models
         public string ClubEmail { get; set; }
 
         [Required(ErrorMessage = "Club Name is Required")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [StringLength(30, ErrorMessage = "Last Name cannot be longer than 30 characters.")]
         [Display(Name = "Club Name")]
         public string ClubName { get; set; }

@@ -1,11 +1,12 @@
 ﻿@*when creating view for a viewModel you must delete the dbContext class as viewModel does not access db in anyway from the view*@
+@using Microsoft.AspNet.Identity
 @model MyHappyDays.ViewModels.ChildProfile
 
 @{
     ViewBag.Title = "MyDashboard";
 }
 
-<h4>Welcome  To Your Dashboard</h4>
+<h4>Welcome</h4> + User.Identity.GetUserName() + <h4> To Your Dashboard</h4>
 
 <p>
     @Html.ActionLink("Create Profile and Child's Details", "Create")

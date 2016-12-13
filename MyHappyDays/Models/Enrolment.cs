@@ -9,8 +9,10 @@ namespace MyHappyDays.Models
     {
         public int ID { get; set; }
 
+        //to be set up
         [Required(ErrorMessage = "Please Select if Payment has been Made")]
         public Boolean PaymentMade { get; set; }
+        //to be set up
         public Boolean PaymentDue { get; set; }
 
         //foreign key from child entity

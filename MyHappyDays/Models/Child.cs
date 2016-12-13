@@ -11,6 +11,7 @@ namespace MyHappyDays.Models
         public int ID { get; set; }
         [Required(ErrorMessage = "Enter Guardian's First Name")]
         [StringLength(50, ErrorMessage = "Guardian's First Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [Column("GuardianFirstName")]
         [Display(Name = "Guardian's First Name")]
 
@@ -18,6 +19,7 @@ namespace MyHappyDays.Models
 
         [Required(ErrorMessage = "Enter Guardian's Last Name")]
         [StringLength(50, ErrorMessage = "Guardian's Last Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [Display(Name = "Guardian's Last Name")]
         public string LastName { get; set; }
 
@@ -26,7 +28,7 @@ namespace MyHappyDays.Models
         {
             get
             {
-                return ChildFirstName + ", " + ChildLastName;
+                return ChildFirstName + " " + ChildLastName;
             }
         }
         [Required(ErrorMessage = "Enter Guardian's Contact Number")]
@@ -39,9 +41,13 @@ namespace MyHappyDays.Models
         public string GuardianEmail { get; set; }
 
         [Required(ErrorMessage = "Enter Child's Last Name")]
-        [Display(Name = "Child's Family Name")]
+        [StringLength(50, ErrorMessage = "Child's Last Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [Display(Name = "Child's Last Name")]
         public string ChildLastName { get; set; }
 
+        [StringLength(50, ErrorMessage = "Child's Name cannot be longer than 50 characters.")]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         [Required(ErrorMessage = "Enter Child's First Name")]
         [Display(Name = "Child's First Name")]
         public string ChildFirstName { get; set; }

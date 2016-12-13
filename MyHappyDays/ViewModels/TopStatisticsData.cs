@@ -14,6 +14,7 @@ namespace MyHappyDays.ViewModels
         public AgeGroup AgeGroup { get; set; }
         public int ActivityCount { get; set; }
         public Activity Activity { get; set; }
+        public IEnumerable<Enrolment> Enrolments { get; set; }
             
 
     }

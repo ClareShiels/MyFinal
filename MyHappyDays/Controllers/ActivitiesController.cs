@@ -29,6 +29,15 @@ namespace MyHappyDays.Controllers
 
         }
 
+        private void PopulateInstructorDropDownList(object selectedInstructor = null)
+        {
+            var instructorsQuery = from c in db.Instructors
+                             orderby c.InstructorLastName
+                             select c;
+
+            ViewBag.ClubId = new SelectList(instructorsQuery, "ID", "InstructorsLastName", selectedInstructor);
+        }
+
         //GET: Activities
         //public async Task<ActionResult> Index()
         //{
@@ -52,28 +61,7 @@ namespace MyHappyDays.Controllers
         }
 
 
-        ////allow all visitors search activities
-        //public ActionResult SearchAllActivities()
-        //{
-        //    var viewModel = new ActivitiesData();
-
-        //    viewModel.Activities = db.Activities.
-        //        Include(a => a.Club).
-        //        Include(a => a.Enrolments.Select(c => c.Child)).
-        //        Include(a => a.Instructor).
-        //        OrderBy(c => c.NameOfActivity);
-
-        //    //if (id != null)
-        //    //{
-        //    //    ViewBag.ActivityID = id.Value;
-        //    //    viewModel.Clubs = viewModel.Activities.
-        //    //        Where(a => a.ID == id.Value).cl;
-
-        //    //}
-
-        //    return View(viewModel);
-        //}
-
+       
         // GET: Activities/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -95,8 +83,7 @@ namespace MyHappyDays.Controllers
         [Authorize(Roles = "Club Manager, Admin")]
         public ActionResult Create()
         {
-            //ViewBag.ClubID = new SelectList(db.Clubs, "ID", "FirstName");
-            //ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "InstructorFirstName");
+           
             PopulateClubDropDownList();
             PopulateInstructorDropDownList();
 

@@ -17,7 +17,7 @@ namespace MyHappyDays.Models
 
         //public int EnrolmentID { get; set; }
         public int ID { get; set; }
-        public double AmountReceived { get; set; }
+        public double AmountPaid { get; set; }
         public double AmountDue { get; set; }
 
         [DataType(DataType.Date)]
